@@ -17,5 +17,6 @@ class LightColors {
   static const Color titleTextColor = Color(0xff363636);
   static const Color subtitleTextColor = Color(0xff9e9e9e);
   static const Color textColor = Color(0xff363636);
-  
+  static const Color snackBarBackground = Color.fromARGB(255, 197, 61, 48);
+  static const Color snackBarTextColor = Color(0xfffffcfc);
 }

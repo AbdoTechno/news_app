@@ -16,7 +16,7 @@ class OnboardingScreen extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-          
+
             actions: [
               Consumer<OnboardingController>(
                 builder: (BuildContext context, controller, Widget? child) {

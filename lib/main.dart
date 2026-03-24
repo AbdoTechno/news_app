@@ -6,7 +6,8 @@ import 'package:news/features/splash/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PreferencesManager().init();
-  
+  // PreferencesManager().clear();
+
   runApp(const MyApp());
 }
 
@@ -20,7 +21,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: lightTheme,
-
       // theme: darkTheme,
       home: SplashScreen(),
     );

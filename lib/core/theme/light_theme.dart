@@ -61,4 +61,19 @@ ThemeData lightTheme = ThemeData(
       fontFamily: 'Times New Roman',
     ),
   ),
+  progressIndicatorTheme: ProgressIndicatorThemeData(
+    color: LightColors.elevatedButtonForeground,
+    borderRadius: BorderRadius.circular(12),
+    strokeWidth: 3,
+    strokeCap: StrokeCap.round,
+  ),
+  snackBarTheme: SnackBarThemeData(
+    backgroundColor: LightColors.snackBarBackground,
+    contentTextStyle: TextStyle(
+      color: LightColors.snackBarTextColor,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+  ),
 );

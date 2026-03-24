@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:news/core/datasource/remote_data/api_config.dart';
 import 'package:news/core/datasource/remote_data/api_service.dart';
+import 'package:news/core/enums/request_status_enums.dart';
 import 'package:news/features/home/models/news_article_model.dart';
 
 class HomeController extends ChangeNotifier {
-  bool topHeadLineLoading = true;
-  bool everythingLoading = true;
+  RequestStatusEnums topHeadLineRequestStatus = RequestStatusEnums.loading;
+  RequestStatusEnums everythingRequestStatus = RequestStatusEnums.loading;
+
   String? errorMessage;
   List<NewsArticleModel> topHeadLinesArticles = [];
   List<NewsArticleModel> everythingArticles = [];
@@ -15,7 +17,6 @@ class HomeController extends ChangeNotifier {
     getTopHeadLine();
     getEverything();
   }
-  
 
   Future<void> getTopHeadLine() async {
     try {
@@ -27,10 +28,10 @@ class HomeController extends ChangeNotifier {
       topHeadLinesArticles = (result["articles"] as List)
           .map((e) => NewsArticleModel.fromJson(e))
           .toList();
-      topHeadLineLoading = false;
+      topHeadLineRequestStatus = RequestStatusEnums.success;
       errorMessage = null;
     } on Exception catch (e) {
-      topHeadLineLoading = false;
+      topHeadLineRequestStatus = RequestStatusEnums.error;
       errorMessage = e.toString();
     }
     notifyListeners();
@@ -48,10 +49,10 @@ class HomeController extends ChangeNotifier {
               ?.map((e) => NewsArticleModel.fromJson(e))
               .toList() ??
           [];
-      everythingLoading = false;
+      everythingRequestStatus = RequestStatusEnums.success;
       errorMessage = null;
     } on Exception catch (e) {
-      everythingLoading = false;
+      everythingRequestStatus = RequestStatusEnums.error;
       errorMessage = e.toString();
     }
     notifyListeners();

@@ -36,7 +36,7 @@ class OnboardingController extends ChangeNotifier {
   Future<void> onFinish(BuildContext context) async {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) =>  LoginScreen()),
+      MaterialPageRoute(builder: (context) => LoginScreen()),
     );
     PreferencesManager().setBool(PreferencesKey.doneOnboarding, true);
   }

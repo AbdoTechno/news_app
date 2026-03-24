@@ -12,10 +12,10 @@ class ApiService {
       ...?endPointsParam,
     });
     try {
-  final http.Response response = await http.get(url);
-  return jsonDecode(response.body) as Map<String, dynamic>;
-} on Exception {
-    throw Exception("Failed to load data");
-}
+      final http.Response response = await http.get(url);
+      return jsonDecode(response.body) as Map<String, dynamic>;
+    } on Exception {
+      throw Exception("Failed to load data");
+    }
   }
 }

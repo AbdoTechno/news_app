@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
 
-class CustomTextFormFailed extends StatelessWidget {
+class CustomTextFormFailed extends StatefulWidget {
   const CustomTextFormFailed({
     super.key,
     required this.hintText,
     required this.labelText,
     required this.keyboardType,
-    this.obscureText,
     this.controller,
     this.suffixIcon,
+    this.validator,
+    this.obscureText = false,
   });
   final String hintText;
   final String labelText;
   final TextInputType keyboardType;
-  final bool? obscureText;
+  final bool obscureText;
   final TextEditingController? controller;
   final Widget? suffixIcon;
+  final Function(String)? validator;
+
+  @override
+  State<CustomTextFormFailed> createState() => _CustomTextFormFailedState();
+}
+
+class _CustomTextFormFailedState extends State<CustomTextFormFailed> {
+  bool _isPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +32,34 @@ class CustomTextFormFailed extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          labelText,
+          widget.labelText,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
         ),
         SizedBox(height: 8),
-        TextField(
+        TextFormField(
+          validator: widget.validator != null
+              ? (value) => widget.validator!(value ?? '')
+              : null,
           decoration: InputDecoration(
-            hintText: hintText,
-            suffix: suffixIcon,
+            hintText: widget.hintText,
+            suffixIcon: widget.obscureText
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _isPasswordVisible = !_isPasswordVisible;
+                      });
+                    },
+                    icon: Icon(
+                      _isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                  )
+                : widget.suffixIcon,
           ),
-          keyboardType: keyboardType,
-          obscureText: obscureText ?? false,
-          controller: controller,
+          keyboardType: widget.keyboardType,
+          obscureText: widget.obscureText == true ? !_isPasswordVisible : false,
+          controller: widget.controller,
         ),
         SizedBox(height: 12),
       ],

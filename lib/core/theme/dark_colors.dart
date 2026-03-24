@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class DarkColors {
@@ -13,5 +12,3 @@ class DarkColors {
   static const Color background = Color(0xff121212);
   //
 }
-
-

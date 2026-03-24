@@ -45,4 +45,12 @@ class PreferencesManager {
   double? getDouble(String key) {
     return _prefs.getDouble(key);
   }
+
+  void remove(String key) {
+    _prefs.remove(key);
+  }
+
+  void clear() {
+    _prefs.clear();
+  }
 }
