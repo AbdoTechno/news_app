@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/core/enums/request_status_enums.dart';
 import 'package:news/features/home/components/trendinag_card.dart';
+import 'package:news/features/home/components/view_all.dart';
 import 'package:news/features/home/home_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -16,10 +17,7 @@ class TrendinagNews extends StatelessWidget {
           SizedBox(
             height: 250,
             width: double.infinity,
-            child: Image.asset(
-              'assets/images/back_ground.png',
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset('assets/images/back_ground.png', fit: BoxFit.cover),
           ),
           Positioned.fill(
             top: 70,
@@ -33,34 +31,7 @@ class TrendinagNews extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Trending News",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Text(
-                        "View all",
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                          color: Colors.white,
-                          decoration: TextDecoration.underline,
-                          decorationColor: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 12),
+                ViewAll(title: "Trending News", color: Colors.white),
                 SizedBox(
                   height: 170,
                   child: Consumer<HomeController>(
@@ -78,8 +49,7 @@ class TrendinagNews extends StatelessWidget {
                             case RequestStatusEnums.error:
                               return Center(
                                 child: Text(
-                                  controller.errorMessage ??
-                                      'An error occurred',
+                                  controller.errorMessage ?? 'An error occurred',
                                 ),
                               );
                             case RequestStatusEnums.success:
