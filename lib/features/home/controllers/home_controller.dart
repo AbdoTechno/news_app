@@ -12,17 +12,18 @@ class HomeController extends ChangeNotifier {
   List<NewsArticleModel> topHeadLinesArticles = [];
   List<NewsArticleModel> everythingArticles = [];
   ApiService apiService = ApiService();
+  String? selectedCategory = "Top News";
 
   void init() {
     getTopHeadLine();
     getEverything();
   }
 
-  Future<void> getTopHeadLine() async {
+  Future<void> getTopHeadLine({String? category}) async {
     try {
       Map<String, dynamic> result = await apiService.get(
         ApiConfig.topHeadLinesEndPoint,
-        endPointsParam: {"country": "us"},
+        endPointsParam: {"country": "us", "category": category?.toLowerCase()},
       );
 
       topHeadLinesArticles = (result["articles"] as List)
@@ -58,22 +59,15 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  String formatDate(String date) {
-    try {
-      final formattedDate = DateTime.now().difference(DateTime.parse(date));
 
-      if (formattedDate.inDays > 0) {
-        return '${formattedDate.inDays} day${formattedDate.inDays > 1 ? 's' : ''} ago';
-      } else if (formattedDate.inHours > 0) {
-        return '${formattedDate.inHours} hour${formattedDate.inHours > 1 ? 's' : ''} ago';
-      } else if (formattedDate.inMinutes > 0) {
-        return '${formattedDate.inMinutes} minute${formattedDate.inMinutes > 1 ? 's' : ''} ago';
-      } else {
-        return 'Just now';
-      }
-    } catch (e) {
-      return 'Unknown Time';
+
+  void updateSelectedCategory(String category) {
+    selectedCategory = category;
+    if (category == "Top News") {
+      getEverything();
+    } else {
+      getTopHeadLine(category: category.toLowerCase());
     }
-    
+    notifyListeners();
   }
 }

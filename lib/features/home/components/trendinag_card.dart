@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news/features/home/home_controller.dart';
+import 'package:news/core/extension/date_time_extension.dart';
+import 'package:news/features/home/controllers/home_controller.dart';
 import 'package:provider/provider.dart';
 
 class TrendinagCard extends StatelessWidget {
@@ -67,10 +68,14 @@ class TrendinagCard extends StatelessWidget {
                             children: [
                               CircleAvatar(
                                 radius: 16,
-                                backgroundImage: NetworkImage(
-                                  model.urlToImage ??
-                                      'https://via.placeholder.com/150',
-                                ),
+                                backgroundImage: model.urlToImage != null
+                                    ? NetworkImage(model.urlToImage!)
+                                    : Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[300],
+                                            ),
+                                          )
+                                          as ImageProvider,
                               ),
                               const SizedBox(width: 8),
                               Expanded(
@@ -87,7 +92,7 @@ class TrendinagCard extends StatelessWidget {
                               ),
                               const SizedBox(width: 8),
                               Text(
-                                controller.formatDate(model.publishedAt!),
+                                model.publishedAt.formatDate(),
                                 style: Theme.of(context).textTheme.bodyMedium
                                     ?.copyWith(
                                       fontWeight: FontWeight.w400,

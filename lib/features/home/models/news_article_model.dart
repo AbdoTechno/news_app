@@ -5,7 +5,7 @@ class NewsArticleModel {
   final String? description;
   final String? url;
   final String? urlToImage;
-  final String? publishedAt;
+  final DateTime publishedAt;
   final String? content;
   NewsArticleModel({
     required this.author,
@@ -35,9 +35,13 @@ class NewsArticleModel {
       title: map['title'] ?? "",
       description: map['description'] ?? "",
       url: map['url'] ?? "",
-      urlToImage: map['urlToImage'] ?? "",
-      publishedAt: map['publishedAt'] ?? "",
+      urlToImage: map['urlToImage'] ,
+      publishedAt: DateTime.tryParse(map['publishedAt'] ?? "") ?? DateTime.now(),
       content: map['content'] ?? "",
     );
   }
+
+    
+
+
 }
