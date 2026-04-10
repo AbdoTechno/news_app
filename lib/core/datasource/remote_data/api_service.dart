@@ -2,7 +2,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:news/core/datasource/remote_data/api_config.dart';
 
-class ApiService {
+abstract class BaseApiService {
+  Future<dynamic> get(String endPoint, {Map<String, dynamic>? endPointsParam});
+}
+
+class ApiService implements BaseApiService {
+
+
+  @override
   Future<dynamic> get(
     String endPoint, {
     Map<String, dynamic>? endPointsParam,

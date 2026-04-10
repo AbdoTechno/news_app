@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:news/core/sizes/app_sizes.dart';
 
 class ViewAll extends StatelessWidget {
-  const ViewAll({super.key, required this.title, required this.color});
+  const ViewAll({
+    super.key,
+    required this.title,
+    required this.color,
+    required this.screen,
+  });
   final String title;
   final Color color;
+  final Widget screen;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,7 +26,12 @@ class ViewAll extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => screen),
+              );
+            },
             style: TextButton.styleFrom(
               textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 fontWeight: FontWeight.w700,
@@ -31,7 +43,7 @@ class ViewAll extends StatelessWidget {
               style: TextStyle(
                 decoration: TextDecoration.underline,
                 decorationColor: Theme.of(context).primaryColor,
-                fontSize: 16,
+                fontSize: AppSizes.fontSize16,
               ),
             ),
           ),

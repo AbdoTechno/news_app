@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news/core/sizes/app_sizes.dart';
 import 'package:news/features/onboarding/models/onboarding_model.dart';
 import 'package:news/features/onboarding/onboarding_controller.dart';
 import 'package:provider/provider.dart';
@@ -34,9 +35,9 @@ class OnboardingScreen extends StatelessWidget {
             ],
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-              vertical: 30.0,
+            padding: EdgeInsets.symmetric(
+              horizontal: AppSizes.spacingWidth16,
+              vertical: AppSizes.paddingVertical30,
             ),
             child: Column(
               children: [
@@ -58,21 +59,21 @@ class OnboardingScreen extends StatelessWidget {
                       return Column(
                         children: [
                           Image.asset(onboardingItem.imagePath),
-                          const SizedBox(height: 24),
+                          SizedBox(height: AppSizes.spacingHeight20),
                           Text(
                             onboardingItem.title,
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: AppSizes.fontSize20,
                               fontWeight: FontWeight.bold,
                               color: Color(0xff4E4B66),
                             ),
                           ),
-                          const SizedBox(height: 12),
+                          SizedBox(height: AppSizes.spacingHeight12),
                           Text(
                             onboardingItem.description,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: AppSizes.fontSize16,
                               fontWeight: FontWeight.w400,
                               color: Color(0xff6E7191),
                             ),
@@ -98,7 +99,7 @@ class OnboardingScreen extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: 112),
+                SizedBox(height: AppSizes.spacingHeight112),
                 Consumer<OnboardingController>(
                   builder:
                       (
@@ -121,7 +122,7 @@ class OnboardingScreen extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             fixedSize: Size(
                               MediaQuery.of(context).size.width,
-                              52,
+                              AppSizes.spacingHeight52,
                             ),
                           ),
                           child: Text(

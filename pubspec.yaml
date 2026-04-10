@@ -41,6 +41,9 @@ dependencies:
   animated_toggle_switch: ^0.8.7
   cached_network_image: ^3.4.1
   shimmer: ^3.0.0
+  flutter_screenutil: ^5.9.3
+  image_picker: ^1.2.1
+  flutter_svg: ^2.2.4
 
 dev_dependencies:
   flutter_test:

@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:news/core/datasource/remote_data/api_config.dart';
-import 'package:news/core/datasource/remote_data/api_service.dart';
 import 'package:news/core/enums/request_status_enums.dart';
+import 'package:news/core/mixins/safe_notify_mixin.dart';
 import 'package:news/features/home/models/news_article_model.dart';
+import 'package:news/core/repos/news_repository.dart';
 
-class HomeController extends ChangeNotifier {
+class HomeController extends ChangeNotifier with SafeNotifyMixin {
+  HomeController(this.newsRepository) {
+    init();
+  }
   RequestStatusEnums topHeadLineRequestStatus = RequestStatusEnums.loading;
   RequestStatusEnums everythingRequestStatus = RequestStatusEnums.loading;
 
   String? errorMessage;
   List<NewsArticleModel> topHeadLinesArticles = [];
   List<NewsArticleModel> everythingArticles = [];
-  ApiService apiService = ApiService();
   String? selectedCategory = "Top News";
-  bool _isDisposed = false;
+
+  NewsRepository newsRepository;
 
   void init() {
     getTopHeadLine();
@@ -23,54 +26,38 @@ class HomeController extends ChangeNotifier {
   Future<void> getTopHeadLine({String? category}) async {
     try {
       topHeadLineRequestStatus = RequestStatusEnums.loading;
-      notifyListeners();
-      Map<String, dynamic> result = await apiService.get(
-        ApiConfig.topHeadLinesEndPoint,
-        endPointsParam: {"country": "us", "category": category?.toLowerCase()},
+      safeNotifyListeners();
+
+      topHeadLinesArticles = await newsRepository.getTopHeadLine(
+        category: category?.toLowerCase(),
       );
+      safeNotifyListeners();
 
-      if (_isDisposed) return;
-
-      topHeadLinesArticles = (result["articles"] as List)
-          .map((e) => NewsArticleModel.fromJson(e))
-          .toList();
       topHeadLineRequestStatus = RequestStatusEnums.success;
       errorMessage = null;
     } on Exception catch (e) {
-      if (_isDisposed) return;
+      safeNotifyListeners();
+
       topHeadLineRequestStatus = RequestStatusEnums.error;
       errorMessage = e.toString();
     }
-    if (!_isDisposed) {
-      notifyListeners();
-    }
+    safeNotifyListeners();
   }
 
   Future<void> getEverything() async {
     try {
       everythingRequestStatus = RequestStatusEnums.loading;
-      Map<String, dynamic> result = await apiService.get(
-        ApiConfig.everythingEndPoint,
-        endPointsParam: {"q": "tesla"},
-      );
 
-      if (_isDisposed) return;
+      everythingArticles = await newsRepository.getEverything();
 
-      everythingArticles =
-          (result["articles"] as List?)
-              ?.map((e) => NewsArticleModel.fromJson(e))
-              .toList() ??
-          [];
       everythingRequestStatus = RequestStatusEnums.success;
       errorMessage = null;
     } on Exception catch (e) {
-      if (_isDisposed) return;
+      safeNotifyListeners();
       everythingRequestStatus = RequestStatusEnums.error;
       errorMessage = e.toString();
     }
-    if (!_isDisposed) {
-      notifyListeners();
-    }
+    safeNotifyListeners();
   }
 
   void updateSelectedCategory(String category) {
@@ -80,12 +67,6 @@ class HomeController extends ChangeNotifier {
     } else {
       getTopHeadLine(category: category.toLowerCase());
     }
-    notifyListeners();
-  }
-
-  @override
-  void dispose() {
-    _isDisposed = true;
-    super.dispose();
+    safeNotifyListeners();
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/core/enums/request_status_enums.dart';
+import 'package:news/core/sizes/app_sizes.dart';
+import 'package:news/features/home/categories_screen.dart';
 import 'package:news/features/home/components/trendinag_card.dart';
 import 'package:news/features/home/components/trending_news_shimmer.dart';
 import 'package:news/features/home/components/view_all.dart';
@@ -13,11 +15,11 @@ class TrendinagNews extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 350,
+        height: AppSizes.spacingHeight350,
         child: Stack(
           children: [
             SizedBox(
-              height: 250,
+              height: AppSizes.spacingHeight250,
               width: double.infinity,
               child: Image.asset('assets/images/back_ground.png', fit: BoxFit.cover),
             ),
@@ -29,13 +31,20 @@ class TrendinagNews extends StatelessWidget {
                     "NEWST",
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w600,
-                      fontSize: 40,
+                      fontSize: AppSizes.fontSize40,
                       color: Theme.of(context).primaryColor,
                     ),
                   ),
-                  ViewAll(title: "Trending News", color: Colors.white),
+                  ViewAll(
+                    title: "Trending News",
+                    color: Colors.white,
+                    screen: ChangeNotifierProvider.value(
+                      value: Provider.of<HomeController>(context, listen: false),
+                      child: CategoriesScreen(),
+                    ),
+                  ),
                   SizedBox(
-                    height: 170,
+                    height: AppSizes.spacingHeight170,
                     child: Consumer<HomeController>(
                       builder:
                           (
@@ -67,4 +76,3 @@ class TrendinagNews extends StatelessWidget {
     );
   }
 }
-

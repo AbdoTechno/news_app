@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/core/datasource/local_data/preferences_key.dart';
 import 'package:news/core/datasource/local_data/preferences_manager.dart';
+import 'package:news/core/sizes/app_sizes.dart';
 import 'package:news/core/widgets/custom_text_formfaild.dart';
 import 'package:news/features/auth/login_screen.dart';
 
@@ -16,8 +17,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final TextEditingController passwordController = TextEditingController();
 
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? errorMessage;
@@ -80,22 +80,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 180),
+                  SizedBox(height: AppSizes.spacingHeight180),
 
                   Center(
-                    child: Image.asset('assets/images/logo.png', height: 45),
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      height: AppSizes.spacingHeight45,
+                    ),
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: AppSizes.spacingHeight40),
                   Text(
                     "Welcome to Newts",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                      fontSize: AppSizes.fontSize20,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: AppSizes.spacingHeight16),
                   CustomTextFormFailed(
                     validator: (value) {
-                      final emailRegex = RegExp(
-                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                      );
+                      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                       if (value.isEmpty || value.trim().isEmpty) {
                         return "Email is required";
                       }
@@ -157,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   if (errorMessage != null)
                     Text(errorMessage!, style: TextStyle(color: Colors.red)),
 
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSizes.spacingHeight20),
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -171,18 +175,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ? CircularProgressIndicator()
                         : Text(
                             'Sign Up',
-                            style: Theme.of(context).textTheme.bodyMedium
-                                ?.copyWith(
-                                  color: Theme.of(context)
-                                      .elevatedButtonTheme
-                                      .style!
-                                      .foregroundColor!
-                                      .resolve({}),
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context)
+                                  .elevatedButtonTheme
+                                  .style!
+                                  .foregroundColor!
+                                  .resolve({}),
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                   ),
-                  SizedBox(height: 24),
+                  SizedBox(height: AppSizes.spacingHeight20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -197,11 +200,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                         child: Text(
                           'Sign In',
-                          style: Theme.of(context).textTheme.bodyMedium!
-                              .copyWith(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.w500,
-                              ),
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],

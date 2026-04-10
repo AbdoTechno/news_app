@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:news/core/sizes/app_sizes.dart';
 import 'package:news/core/theme/light_colors.dart';
 
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: LightColors.scaffoldBackground,
   primaryColor: LightColors.primary,
-  appBarTheme: const AppBarTheme(),
+  appBarTheme: AppBarTheme(
+    backgroundColor: LightColors.appBarBackground,
+    foregroundColor: LightColors.appBarForeground,
+    elevation: 0,
+    centerTitle: true,
+
+    titleTextStyle: TextStyle(
+      color: LightColors.titleTextColor,
+      fontSize: AppSizes.fontSize18,
+      fontWeight: FontWeight.w700,
+      fontFamily: 'Times New Roman',
+    ),
+  ),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(foregroundColor: LightColors.primary),
   ),
@@ -13,7 +26,10 @@ ThemeData lightTheme = ThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: LightColors.primary,
       foregroundColor: LightColors.elevatedButtonForeground,
-      textStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+      textStyle: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: AppSizes.fontSize16,
+      ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
     ),
   ),
@@ -36,44 +52,46 @@ ThemeData lightTheme = ThemeData(
     hintStyle: TextStyle(color: LightColors.inputHintColor),
     labelStyle: TextStyle(
       color: LightColors.inputLabelColor,
-      fontSize: 16,
+      fontSize: AppSizes.fontSize16,
       fontWeight: FontWeight.w400,
     ),
   ),
   // text theme
-  textTheme: const TextTheme(
+  textTheme: TextTheme(
     bodyLarge: TextStyle(
       color: LightColors.bodyTextColor,
-      fontSize: 16,
+      fontSize: AppSizes.fontSize16,
       fontWeight: FontWeight.w400,
       fontFamily: 'Times New Roman',
     ),
     bodyMedium: TextStyle(
       color: LightColors.bodyTextColor,
-      fontSize: 14,
+      fontSize: AppSizes.fontSize14,
       fontWeight: FontWeight.w400,
       fontFamily: 'Times New Roman',
     ),
     bodySmall: TextStyle(
       color: LightColors.bodyTextColor,
-      fontSize: 12,
+      fontSize: AppSizes.fontSize12,
       fontWeight: FontWeight.w400,
       fontFamily: 'Times New Roman',
     ),
   ),
   progressIndicatorTheme: ProgressIndicatorThemeData(
     color: LightColors.elevatedButtonForeground,
-    borderRadius: BorderRadius.circular(12),
-    strokeWidth: 3,
+    borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
+    strokeWidth: AppSizes.borderWidth3,
     strokeCap: StrokeCap.round,
   ),
   snackBarTheme: SnackBarThemeData(
     backgroundColor: LightColors.snackBarBackground,
     contentTextStyle: TextStyle(
       color: LightColors.snackBarTextColor,
-      fontSize: 14,
+      fontSize: AppSizes.fontSize14,
       fontWeight: FontWeight.w400,
     ),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
   ),
+
+  // appbar theme
 );

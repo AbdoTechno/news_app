@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/core/datasource/local_data/preferences_key.dart';
 import 'package:news/core/datasource/local_data/preferences_manager.dart';
+import 'package:news/core/sizes/app_sizes.dart';
 import 'package:news/core/widgets/custom_text_formfaild.dart';
 import 'package:news/features/auth/register_screen.dart';
 import 'package:news/features/main/main_screen.dart';
@@ -74,21 +75,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 180),
+                  SizedBox(height: AppSizes.spacingHeight180),
                   Center(
-                    child: Image.asset('assets/images/logo.png', height: 45),
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      height: AppSizes.spacingHeight45,
+                    ),
                   ),
-                  SizedBox(height: 60),
+                  SizedBox(height: AppSizes.spacingHeight60),
                   Text(
                     "Welcome to Newts",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                      fontSize: AppSizes.fontSize20,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: AppSizes.spacingHeight16),
                   CustomTextFormFailed(
                     validator: (value) {
-                      final emailRegex = RegExp(
-                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                      );
+                      final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                       if (value.isEmpty || value.trim().isEmpty) {
                         return "Email is required";
                       }
@@ -119,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   if (errorMessage != null)
                     Text(errorMessage!, style: TextStyle(color: Colors.red)),
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSizes.spacingHeight20),
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -133,18 +138,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? CircularProgressIndicator()
                         : Text(
                             'Sign In',
-                            style: Theme.of(context).textTheme.bodyMedium
-                                ?.copyWith(
-                                  color: Theme.of(context)
-                                      .elevatedButtonTheme
-                                      .style!
-                                      .foregroundColor!
-                                      .resolve({}),
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Theme.of(context)
+                                  .elevatedButtonTheme
+                                  .style!
+                                  .foregroundColor!
+                                  .resolve({}),
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                   ),
-                  SizedBox(height: 24),
+                  SizedBox(height: AppSizes.spacingHeight20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -164,11 +168,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: Text(
                           'Sign Up',
-                          style: Theme.of(context).textTheme.bodyMedium!
-                              .copyWith(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.w500,
-                              ),
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],

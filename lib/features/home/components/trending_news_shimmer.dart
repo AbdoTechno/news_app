@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:news/core/sizes/app_sizes.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TrendingNewsShimmer extends StatelessWidget {
-  const TrendingNewsShimmer({
-    super.key,
-  });
+  const TrendingNewsShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +16,17 @@ class TrendingNewsShimmer extends StatelessWidget {
           baseColor: Colors.grey.shade300,
           highlightColor: Colors.grey.shade100,
           child: Container(
-            width: 280,
-            height: 170,
-    
+            width: AppSizes.spacingWidth280,
+            height: AppSizes.spacingHeight170,
+
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
               color: Colors.grey.shade300,
             ),
           ),
         );
       },
-      separatorBuilder: (context, index) =>
-          const SizedBox(width: 16),
+      separatorBuilder: (context, index) => SizedBox(width: AppSizes.spacingWidth16),
     );
   }
 }

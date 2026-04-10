@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news/core/sizes/app_sizes.dart';
 
 class CustomTextFormFailed extends StatefulWidget {
   const CustomTextFormFailed({
@@ -33,9 +34,12 @@ class _CustomTextFormFailedState extends State<CustomTextFormFailed> {
       children: [
         Text(
           widget.labelText,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+          style: TextStyle(
+            fontSize: AppSizes.fontSize16,
+            fontWeight: FontWeight.w400,
+          ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: AppSizes.spacingHeight8),
         TextFormField(
           validator: widget.validator != null
               ? (value) => widget.validator!(value ?? '')
@@ -50,9 +54,7 @@ class _CustomTextFormFailedState extends State<CustomTextFormFailed> {
                       });
                     },
                     icon: Icon(
-                      _isPasswordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+                      _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                     ),
                   )
                 : widget.suffixIcon,
@@ -61,7 +63,7 @@ class _CustomTextFormFailedState extends State<CustomTextFormFailed> {
           obscureText: widget.obscureText == true ? !_isPasswordVisible : false,
           controller: widget.controller,
         ),
-        SizedBox(height: 12),
+        SizedBox(height: AppSizes.spacingHeight12),
       ],
     );
   }

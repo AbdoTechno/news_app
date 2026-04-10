@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/core/extension/date_time_extension.dart';
+import 'package:news/core/sizes/app_sizes.dart';
 import 'package:news/core/widgets/custom_cached_networkImage.dart';
 import 'package:news/features/home/controllers/home_controller.dart';
 import 'package:provider/provider.dart';
@@ -19,20 +20,23 @@ class TrendinagCard extends StatelessWidget {
             final model = controller.everythingArticles[index];
             return Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(width: 2, color: Colors.white),
+                borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
+                border: Border.all(
+                  width: AppSizes.borderWidth2,
+                  color: Colors.white,
+                ),
               ),
-              width: 280,
+              width: AppSizes.spacingWidth280,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
                 child: Stack(
                   clipBehavior: Clip.hardEdge,
                   children: [
                     if (controller.everythingArticles[index].urlToImage != null)
                       CustomCachedNetworkImage(
                         imageUrl: model.urlToImage!,
-                        width: 280,
-                        height: 170,
+                        width: AppSizes.spacingWidth280,
+                        height: AppSizes.spacingHeight170,
                       ),
                     Positioned.fill(
                       child: Container(
@@ -60,14 +64,14 @@ class TrendinagCard extends StatelessWidget {
                             model.title ?? '',
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w700,
-                              fontSize: 14,
+                              fontSize: AppSizes.fontSize14,
                               color: Colors.white,
                             ),
                           ),
                           Row(
                             children: [
                               CircleAvatar(
-                                radius: 16,
+                                radius: AppSizes.borderRadius16,
                                 backgroundImage: model.urlToImage != null
                                     ? NetworkImage(model.urlToImage!)
                                     : Container(
@@ -77,7 +81,7 @@ class TrendinagCard extends StatelessWidget {
                                           )
                                           as ImageProvider,
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: AppSizes.spacingWidth8),
                               Expanded(
                                 child: Text(
                                   model.author ?? 'Unknown Author',
@@ -90,7 +94,7 @@ class TrendinagCard extends StatelessWidget {
                                       ),
                                 ),
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: AppSizes.spacingWidth8),
                               Text(
                                 model.publishedAt.formatDate(),
                                 style: Theme.of(context).textTheme.bodyMedium
@@ -110,7 +114,7 @@ class TrendinagCard extends StatelessWidget {
             );
           },
           separatorBuilder: (BuildContext context, int index) {
-            return const SizedBox(width: 12);
+            return SizedBox(width: AppSizes.spacingWidth12);
           },
         );
       },
