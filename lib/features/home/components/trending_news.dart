@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/core/enums/request_status_enums.dart';
 import 'package:news/features/home/components/trendinag_card.dart';
+import 'package:news/features/home/components/trending_news_shimmer.dart';
 import 'package:news/features/home/components/view_all.dart';
 import 'package:news/features/home/controllers/home_controller.dart';
 import 'package:provider/provider.dart';
@@ -44,9 +45,7 @@ class TrendinagNews extends StatelessWidget {
                           ) {
                             switch (controller.everythingRequestStatus) {
                               case RequestStatusEnums.loading:
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
+                                return TrendingNewsShimmer();
                               case RequestStatusEnums.error:
                                 return Center(
                                   child: Text(
@@ -68,3 +67,4 @@ class TrendinagNews extends StatelessWidget {
     );
   }
 }
+

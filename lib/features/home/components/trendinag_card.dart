@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/core/extension/date_time_extension.dart';
+import 'package:news/core/widgets/custom_cached_networkImage.dart';
 import 'package:news/features/home/controllers/home_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -28,11 +29,10 @@ class TrendinagCard extends StatelessWidget {
                   clipBehavior: Clip.hardEdge,
                   children: [
                     if (controller.everythingArticles[index].urlToImage != null)
-                      Image.network(
-                        controller.everythingArticles[index].urlToImage!,
+                      CustomCachedNetworkImage(
+                        imageUrl: model.urlToImage!,
                         width: 280,
                         height: 170,
-                        fit: BoxFit.cover,
                       ),
                     Positioned.fill(
                       child: Container(

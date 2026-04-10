@@ -13,6 +13,7 @@ class HomeController extends ChangeNotifier {
   List<NewsArticleModel> everythingArticles = [];
   ApiService apiService = ApiService();
   String? selectedCategory = "Top News";
+  bool _isDisposed = false;
 
   void init() {
     getTopHeadLine();
@@ -21,10 +22,14 @@ class HomeController extends ChangeNotifier {
 
   Future<void> getTopHeadLine({String? category}) async {
     try {
+      topHeadLineRequestStatus = RequestStatusEnums.loading;
+      notifyListeners();
       Map<String, dynamic> result = await apiService.get(
         ApiConfig.topHeadLinesEndPoint,
         endPointsParam: {"country": "us", "category": category?.toLowerCase()},
       );
+
+      if (_isDisposed) return;
 
       topHeadLinesArticles = (result["articles"] as List)
           .map((e) => NewsArticleModel.fromJson(e))
@@ -32,18 +37,24 @@ class HomeController extends ChangeNotifier {
       topHeadLineRequestStatus = RequestStatusEnums.success;
       errorMessage = null;
     } on Exception catch (e) {
+      if (_isDisposed) return;
       topHeadLineRequestStatus = RequestStatusEnums.error;
       errorMessage = e.toString();
     }
-    notifyListeners();
+    if (!_isDisposed) {
+      notifyListeners();
+    }
   }
 
   Future<void> getEverything() async {
     try {
+      everythingRequestStatus = RequestStatusEnums.loading;
       Map<String, dynamic> result = await apiService.get(
         ApiConfig.everythingEndPoint,
         endPointsParam: {"q": "tesla"},
       );
+
+      if (_isDisposed) return;
 
       everythingArticles =
           (result["articles"] as List?)
@@ -53,13 +64,14 @@ class HomeController extends ChangeNotifier {
       everythingRequestStatus = RequestStatusEnums.success;
       errorMessage = null;
     } on Exception catch (e) {
+      if (_isDisposed) return;
       everythingRequestStatus = RequestStatusEnums.error;
       errorMessage = e.toString();
     }
-    notifyListeners();
+    if (!_isDisposed) {
+      notifyListeners();
+    }
   }
-
-
 
   void updateSelectedCategory(String category) {
     selectedCategory = category;
@@ -69,5 +81,11 @@ class HomeController extends ChangeNotifier {
       getTopHeadLine(category: category.toLowerCase());
     }
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    super.dispose();
   }
 }
