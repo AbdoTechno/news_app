@@ -57,7 +57,6 @@ class CustomArticlesListSliver extends StatelessWidget {
               imageWidth: imageWidth,
               imageHeight: imageHeight,
               onBookmarkTap: onBookmarkTap,
-              onArticleTap: onArticleTap,
             );
           },
         );

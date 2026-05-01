@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 mixin SafeNotifyMixin on ChangeNotifier {
   bool _isDisposed = false;
 
@@ -8,7 +7,6 @@ mixin SafeNotifyMixin on ChangeNotifier {
     _isDisposed = true;
     super.dispose();
   }
-
   void safeNotifyListeners() {
     if (!_isDisposed) {
       notifyListeners();

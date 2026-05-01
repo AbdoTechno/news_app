@@ -46,6 +46,7 @@ class AppSizes {
   static double borderRadius65 = 65.r;
   static double borderRadius16 = 16.r;
   static double borderRadius24 = 24.r;
+  static double borderRadius20 = 20.r;
   static double borderRadius12 = 12.r;
   static double borderRadius10 = 10.r;
   static double borderRadius8 = 8.r;

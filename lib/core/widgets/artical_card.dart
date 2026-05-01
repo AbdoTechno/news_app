@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news/core/extension/date_time_extension.dart';
 import 'package:news/core/sizes/app_sizes.dart';
 import 'package:news/core/widgets/custom_cached_networkImage.dart';
+import 'package:news/features/details/details_screen.dart';
 import 'package:news/features/home/models/news_article_model.dart';
 
 class ArticleCard extends StatelessWidget {
@@ -30,7 +31,12 @@ class ArticleCard extends StatelessWidget {
         : author;
 
     return GestureDetector(
-      onTap: () => onArticleTap?.call(article),
+      onTap: () =>Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetailsScreen(model : article),
+        ),
+      ),
       child: Padding(
         padding: padding,
         child: Row(

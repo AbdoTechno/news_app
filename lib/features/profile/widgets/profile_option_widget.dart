@@ -22,14 +22,14 @@ class ProfileOptionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: AppSizes.spacingHeight12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: onTap,
-                child: Row(
+        InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: AppSizes.spacingHeight12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
                   children: [
                     SvgPicture.asset(
                       leadingIcon,
@@ -47,17 +47,17 @@ class ProfileOptionWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              SvgPicture.asset(
-                trailingIcon,
-                width: AppSizes.iconSize16,
-                height: AppSizes.iconSize16,
-                fit: BoxFit.contain,
-                colorFilter: showDivider
-                    ? null
-                    : const ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
-              ),
-            ],
+                SvgPicture.asset(
+                  trailingIcon,
+                  width: AppSizes.iconSize16,
+                  height: AppSizes.iconSize16,
+                  fit: BoxFit.contain,
+                  colorFilter: showDivider
+                      ? null
+                      : const ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
+                ),
+              ],
+            ),
           ),
         ),
         showDivider ? Divider(height: 1, thickness: 1) : SizedBox.shrink(),

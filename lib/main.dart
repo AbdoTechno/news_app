@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/core/datasource/local_data/preferences_manager.dart';
+import 'package:news/core/repos/user_repository.dart';
 import 'package:news/core/theme/light_theme.dart';
 import 'package:news/features/splash/splash_screen.dart';
 
@@ -10,6 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PreferencesManager().init();
   // PreferencesManager().clear();
+  UserRepository().init();
 
   runApp(const MyApp());
 }
