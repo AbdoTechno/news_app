@@ -67,11 +67,11 @@ class UserRepository {
   // login
   Future<String?> login(String email, String password) async {
     final user = getCurrentUser();
-    if (user == null) {
-      return "No user found, please register first";
+    if (user == null || user.email != email) {
+      return "No user found with this email, please register first";
     }
-    if (user.email != email || user.password != password) {
-      return "Invalid email or password";
+    if (user.password != password) {
+      return "Invalid password";
     }
     return null;
   }
@@ -83,8 +83,8 @@ class UserRepository {
     required String password,
   }) async {
     final user = getCurrentUser();
-    if (user != null) {
-      return "User already exists, please login";
+    if (user != null && user.email == email) {
+      return "User already exists with this email, please login";
     }
     final newUser = UserModel(
       email: email,

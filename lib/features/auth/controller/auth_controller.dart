@@ -25,25 +25,24 @@ class AuthController extends ChangeNotifier with SafeNotifyMixin {
     final password = passwordController.text.trim();
     final name = nameController.text.trim();
 
-    final String? error =
-        await UserRepository().signup(
-          name: name,
-          email: email,
-          password: password,
-        ) ??
-        "An error occurred during registration";
+    final String? error = await UserRepository().signup(
+      name: name,
+      email: email,
+      password: password,
+    );
 
     if (error != null) {
       errorMessage = error;
       isLoading = false;
       safeNotifyListeners();
-      return  false;
+      return false;
     }
 
     isLoading = false;
     safeNotifyListeners();
     return true;
   }
+
   @override
   void dispose() {
     emailController.dispose();

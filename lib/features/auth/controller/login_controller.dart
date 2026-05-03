@@ -17,7 +17,7 @@ class LoginController extends ChangeNotifier with SafeNotifyMixin {
   Future<bool> login() async {
     isLoading = true;
     errorMessage = null;
-    safeNotifyListeners();;
+    safeNotifyListeners();
 
    final String? error =  await UserRepository().login(
       emailController.text.trim(),
