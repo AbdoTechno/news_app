@@ -1,16 +1,116 @@
-# news
+# News Application
 
-A new Flutter project.
+A professional Flutter news application that delivers real-time news content with an intuitive user interface and comprehensive news coverage.
 
-## Getting Started
+## Overview
 
-This project is a starting point for a Flutter application.
+This application provides users with access to the latest news from various sources, featuring a clean and modern design built with Flutter and integrated with external news APIs.
 
-A few resources to get you started if this is your first Flutter project:
+## Prerequisites
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Before you begin, ensure you have the following installed:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter SDK (version 3.0 or higher)
+- Dart SDK (version 3.0 or higher)
+- Android Studio or Xcode (for mobile development)
+- Git
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd news
+```
+
+2. Install dependencies:
+```bash
+flutter pub get
+```
+
+3. Run code generation (if needed):
+```bash
+flutter pub run build_runner build
+```
+
+## Running the Application
+
+Run the application in development mode:
+
+```bash
+flutter run
+```
+
+For a release build:
+
+```bash
+flutter build apk    # Android
+flutter build ios    # iOS
+```
+
+## Project Structure
+
+```
+lib/
+├── main.dart           # Application entry point
+├── core/               # Core functionality and utilities
+├── features/           # Feature-specific implementations
+└── ...
+```
+
+## Features
+
+- Real-time news updates
+- Multiple news sources
+- Search functionality
+- Bookmark articles
+- Offline caching
+- Responsive design
+
+## API Integration
+
+This application integrates with external news APIs for fetching current articles. Refer to the [API documentation](document/API_COMPLETE_GUIDE.md) for more details.
+
+## Development
+
+For development guidelines and architecture documentation, see the [API News Guide](document/API_NEWS_COMPLETE_EXPLANATION.md).
+
+## Dependencies
+
+The project uses the following key packages:
+
+- **image_picker**: For image selection
+- **sqflite**: Local database storage
+- **shared_preferences**: Persistent preferences
+- **path_provider**: File system paths
+
+For a complete list of dependencies, see [pubspec.yaml](pubspec.yaml).
+
+## Testing
+
+Run the test suite:
+
+```bash
+flutter test
+```
+
+## Contributing
+
+Contributions are welcome. Please follow these guidelines:
+
+1. Create a feature branch
+2. Commit your changes with clear messages
+3. Push to the branch
+4. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For issues and questions, please open an issue in the repository or contact the development team.
+
+---
+
+For more information about Flutter development, visit the [official Flutter documentation](https://docs.flutter.dev/).
