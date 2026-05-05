@@ -43,3 +43,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+# ignore ios macos linux web and .vscode
+/ios/
+/macos/
+/linux/
+/web/
+.vscode/
+
