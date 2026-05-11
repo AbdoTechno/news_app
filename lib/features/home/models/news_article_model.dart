@@ -24,24 +24,31 @@ class NewsArticleModel {
       'description': description,
       'url': url,
       'urlToImage': urlToImage,
-      'publishedAt': publishedAt,
+      'publishedAt': publishedAt.toIso8601String(),
       'content': content,
     };
   }
 
   factory NewsArticleModel.fromJson(Map<String, dynamic> map) {
+    final publishedAtValue = map['publishedAt'];
+    DateTime parsedPublishedAt;
+
+    if (publishedAtValue is DateTime) {
+      parsedPublishedAt = publishedAtValue;
+    } else {
+      parsedPublishedAt =
+          DateTime.tryParse(publishedAtValue?.toString() ?? "") ??
+          DateTime.now();
+    }
+
     return NewsArticleModel(
       author: map['author'] ?? "",
       title: map['title'] ?? "",
       description: map['description'] ?? "",
       url: map['url'] ?? "",
-      urlToImage: map['urlToImage'] ,
-      publishedAt: DateTime.tryParse(map['publishedAt'] ?? "") ?? DateTime.now(),
+      urlToImage: map['urlToImage'],
+      publishedAt: parsedPublishedAt,
       content: map['content'] ?? "",
     );
   }
-
-    
-
-
 }

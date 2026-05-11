@@ -28,8 +28,7 @@ class _ShowModalBottomSheetState extends State<ShowModalBottomSheet> {
   void _loadUserData() {
     final UserModel? user = UserRepository().getCurrentUser();
     _nameController.text = user?.name ?? "User Name";
-    _emailController.text =
-        user?.email ?? "User Email";
+    _emailController.text = user?.email ?? "User Email";
   }
 
   void _saveUserData() async {
@@ -141,6 +140,7 @@ class _ShowModalBottomSheetState extends State<ShowModalBottomSheet> {
                             ?.copyWith(color: Colors.white),
                       ),
                     ),
+                    SizedBox(height: AppSizes.spacingHeight16),
                     ElevatedButton(
                       onPressed: () {
                         _saveUserData();

@@ -2,7 +2,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesManager {
   // Singleton pattern
-  static final PreferencesManager _instance = PreferencesManager._internal();
+  static final PreferencesManager _instance =
+      PreferencesManager._internal();
   // Factory constructor to return the same instance
   factory PreferencesManager() => _instance;
   // Private named constructor

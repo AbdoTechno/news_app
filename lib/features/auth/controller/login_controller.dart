@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news/core/datasource/local_data/preferences_key.dart';
-import 'package:news/core/datasource/local_data/preferences_manager.dart';
 import 'package:news/core/mixins/safe_notify_mixin.dart';
 import 'package:news/core/repos/user_repository.dart';
 
@@ -9,7 +7,7 @@ class LoginController extends ChangeNotifier with SafeNotifyMixin {
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final PreferencesManager _preferencesManager = PreferencesManager();
+  final UserRepository _userRepository = UserRepository();
 
   bool isLoading = false;
   String? errorMessage;
@@ -19,7 +17,7 @@ class LoginController extends ChangeNotifier with SafeNotifyMixin {
     errorMessage = null;
     safeNotifyListeners();
 
-   final String? error =  await UserRepository().login(
+    final String? error = await _userRepository.login(
       emailController.text.trim(),
       passwordController.text.trim(),
     );
@@ -30,8 +28,6 @@ class LoginController extends ChangeNotifier with SafeNotifyMixin {
       safeNotifyListeners();
       return false;
     }
-
-    _preferencesManager.setBool(PreferencesKey.isLoggedIn, true);
 
     isLoading = false;
     safeNotifyListeners();

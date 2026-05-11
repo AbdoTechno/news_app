@@ -2,8 +2,7 @@ import 'dart:io';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:news/core/datasource/local_data/preferences_key.dart';
-import 'package:news/core/datasource/local_data/preferences_manager.dart';
+import 'package:news/core/repos/user_repository.dart';
 import 'package:news/core/sizes/app_sizes.dart';
 import 'package:news/core/theme/app_colors.dart';
 import 'package:news/features/auth/login_screen.dart';
@@ -27,7 +26,11 @@ class ProfileScreen extends StatelessWidget {
           padding: EdgeInsets.all(AppSizes.spacingWidth16),
           child: Consumer<ProfileController>(
             builder:
-                (BuildContext context, ProfileController controller, Widget? child) {
+                (
+                  BuildContext context,
+                  ProfileController controller,
+                  Widget? child,
+                ) {
                   return SingleChildScrollView(
                     child: Column(
                       children: [
@@ -35,9 +38,14 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             CircleAvatar(
                               radius: AppSizes.borderRadius65,
-                              backgroundImage: controller.pickedFile != null
-                                  ? FileImage(File(controller.pickedFile!.path))
-                                  : const AssetImage("assets/images/splash.png")
+                              backgroundImage:
+                                  controller.pickedFile != null
+                                  ? FileImage(
+                                      File(controller.pickedFile!.path),
+                                    )
+                                  : const AssetImage(
+                                          "assets/images/splash.png",
+                                        )
                                         as ImageProvider,
                             ),
                             Positioned(
@@ -65,8 +73,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         SizedBox(height: AppSizes.spacingHeight16),
                         Text(
-                          PreferencesManager().getString(PreferencesKey.userName) ??
-                              "User Name",
+                          controller.userName ?? "User Name",
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         SizedBox(height: AppSizes.spacingHeight32),
@@ -75,7 +82,9 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             Text(
                               "Settings",
-                              style: Theme.of(context).textTheme.bodyMedium,
+                              style: Theme.of(
+                                context,
+                              ).textTheme.bodyMedium,
                             ),
                           ],
                         ),
@@ -105,40 +114,60 @@ class ProfileScreen extends StatelessWidget {
                               showPhoneCode:
                                   true, // optional. Shows phone code before the country name.
                               countryListTheme: CountryListThemeData(
-                                backgroundColor: Theme.of(context).cardColor,
+                                backgroundColor: Theme.of(
+                                  context,
+                                ).cardColor,
                                 borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(24),
                                   topRight: Radius.circular(24),
                                 ),
                                 bottomSheetHeight:
-                                    MediaQuery.of(context).size.height * 0.85,
-                                textStyle: Theme.of(context).textTheme.bodyLarge,
+                                    MediaQuery.of(context).size.height *
+                                    0.85,
+                                textStyle: Theme.of(
+                                  context,
+                                ).textTheme.bodyLarge,
                                 searchTextStyle: Theme.of(
                                   context,
                                 ).textTheme.bodyMedium,
                                 inputDecoration: InputDecoration(
                                   hintText: "Search country",
-                                  hintStyle: Theme.of(context).textTheme.bodyMedium
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
                                       ?.copyWith(color: AppColors.primary),
-                                  prefixIcon: const Icon(Icons.search_rounded),
-                                  filled: true,
-                                  fillColor: AppColors.primary.withOpacity(0.1),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 14,
+                                  prefixIcon: const Icon(
+                                    Icons.search_rounded,
                                   ),
+                                  filled: true,
+                                  fillColor: AppColors.primary.withOpacity(
+                                    0.1,
+                                  ),
+                                  contentPadding:
+                                      const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                        vertical: 14,
+                                      ),
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
+                                    borderRadius: BorderRadius.circular(
+                                      14,
+                                    ),
                                     borderSide: BorderSide.none,
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
+                                    borderRadius: BorderRadius.circular(
+                                      14,
+                                    ),
                                     borderSide: BorderSide.none,
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
+                                    borderRadius: BorderRadius.circular(
+                                      14,
+                                    ),
                                     borderSide: BorderSide(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Theme.of(
+                                        context,
+                                      ).primaryColor,
                                       width: 1.2,
                                     ),
                                   ),
@@ -162,8 +191,8 @@ class ProfileScreen extends StatelessWidget {
                           leadingIcon: "assets/images/logout.svg",
                           trailingIcon: "assets/images/arrow.svg",
                           showDivider: false,
-                          onTap: () {
-                            PreferencesManager().clear();
+                          onTap: () async {
+                            await UserRepository().deleteUser();
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder: (context) => const LoginScreen(),

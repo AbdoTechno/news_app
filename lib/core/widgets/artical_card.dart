@@ -10,17 +10,22 @@ class ArticleCard extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final double imageWidth;
   final double imageHeight;
-  final VoidCallback? onBookmarkTap;
+  final void Function(NewsArticleModel)? onBookmarkTap;
   final Function(NewsArticleModel)? onArticleTap;
+  final bool isBookmarked;
 
   const ArticleCard({
     super.key,
     required this.article,
-    this.padding = const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+    this.padding = const EdgeInsets.symmetric(
+      horizontal: 16.0,
+      vertical: 8,
+    ),
     this.imageWidth = 150,
     this.imageHeight = 90,
     this.onBookmarkTap,
     this.onArticleTap,
+    this.isBookmarked = false,
   });
 
   @override
@@ -31,10 +36,10 @@ class ArticleCard extends StatelessWidget {
         : author;
 
     return GestureDetector(
-      onTap: () =>Navigator.push(
+      onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DetailsScreen(model : article),
+          builder: (context) => DetailsScreen(model: article),
         ),
       ),
       child: Padding(
@@ -68,7 +73,9 @@ class ArticleCard extends StatelessWidget {
                       article.urlToImage != null
                           ? CircleAvatar(
                               radius: AppSizes.borderRadius10,
-                              backgroundImage: NetworkImage(article.urlToImage!),
+                              backgroundImage: NetworkImage(
+                                article.urlToImage!,
+                              ),
                             )
                           : Container(
                               width: AppSizes.size20,
@@ -87,7 +94,9 @@ class ArticleCard extends StatelessWidget {
                                 authorPreview,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.bodyMedium
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
                                     ?.copyWith(
                                       color: Theme.of(context)
                                           .textTheme
@@ -100,21 +109,26 @@ class ArticleCard extends StatelessWidget {
                             SizedBox(width: AppSizes.spacingWidth8),
                             Text(
                               article.publishedAt.formatDate(),
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                overflow: TextOverflow.ellipsis,
-                                color: Theme.of(
-                                  context,
-                                ).textTheme.bodyMedium?.color?.withOpacity(0.6),
-                              ),
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
+                                    overflow: TextOverflow.ellipsis,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.color
+                                        ?.withOpacity(0.6),
+                                  ),
                             ),
                           ],
                         ),
                       ),
                       SizedBox(width: AppSizes.spacingWidth8),
                       GestureDetector(
-                        onTap: onBookmarkTap,
+                        onTap: () => onBookmarkTap?.call(article),
                         child: Icon(
-                          Icons.bookmark_border_outlined,
+                          isBookmarked
+                              ? Icons.bookmark
+                              : Icons.bookmark_border_outlined,
                           size: AppSizes.iconSize25,
                           color: Theme.of(
                             context,

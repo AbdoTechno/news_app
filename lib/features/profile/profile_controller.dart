@@ -1,12 +1,12 @@
 import 'package:country_picker/src/country.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:news/core/datasource/local_data/preferences_key.dart';
-import 'package:news/core/datasource/local_data/preferences_manager.dart';
+import 'package:news/core/repos/user_repository.dart';
 import 'package:news/core/mixins/safe_notify_mixin.dart';
 
 class ProfileController extends ChangeNotifier with SafeNotifyMixin {
   final ImagePicker _imagePicker = ImagePicker();
+  final UserRepository _userRepository = UserRepository();
   XFile? pickedFile;
   String? userName;
   String? userEmail;
@@ -16,7 +16,9 @@ class ProfileController extends ChangeNotifier with SafeNotifyMixin {
 
   Future<String> pickImage(ImageSource source) async {
     try {
-      final XFile? selectedFile = await _imagePicker.pickImage(source: source);
+      final XFile? selectedFile = await _imagePicker.pickImage(
+        source: source,
+      );
       if (selectedFile != null) {
         pickedFile = selectedFile;
         safeNotifyListeners();
@@ -35,23 +37,24 @@ class ProfileController extends ChangeNotifier with SafeNotifyMixin {
   }
 
   void getUserData() {
-    userName =  PreferencesManager().getString(PreferencesKey.userName);
-    userEmail =  PreferencesManager().getString(PreferencesKey.userEmail);
-    countryName =  PreferencesManager().getString(PreferencesKey.userCountry) ;
-    countryCode =  PreferencesManager().getString(PreferencesKey.countryCode) ;
-    
+    final currentUser = _userRepository.getCurrentUser();
+    if (currentUser != null) {
+      userName = currentUser.name;
+      userEmail = currentUser.email;
+      countryName = currentUser.country;
+      countryCode = currentUser.countryCode;
+    }
     safeNotifyListeners();
   }
 
-  void saveCountry(Country country) async  {
-    PreferencesManager().setString(PreferencesKey.displayName, country.displayName);
-    PreferencesManager().setString(PreferencesKey.countryCode, country.countryCode);
-    PreferencesManager().setString(PreferencesKey. countryCode, country.countryCode);
-    PreferencesManager().setString(PreferencesKey.userCountry, country.name);
-    countryName  = country.name;
+  Future<void> saveCountry(Country country) async {
+    await _userRepository.updateUser(
+      displayName: country.displayName,
+      countryCode: country.countryCode,
+      country: country.name,
+    );
+    countryName = country.name;
     countryCode = country.countryCode;
     safeNotifyListeners();
   }
-
-
 }

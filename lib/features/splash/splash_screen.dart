@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/core/datasource/local_data/preferences_key.dart';
 import 'package:news/core/datasource/local_data/preferences_manager.dart';
+import 'package:news/core/repos/user_repository.dart';
 import 'package:news/features/auth/login_screen.dart';
 import 'package:news/features/main/main_screen.dart';
 import 'package:news/features/onboarding/onboarding_screen.dart';
@@ -22,9 +23,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _navigateAfterSplash() async {
     await Future.delayed(const Duration(seconds: 2));
     final doneOnboarding =
-        PreferencesManager().getBool(PreferencesKey.doneOnboarding) ?? false;
-    final isLoggedIn =
-        PreferencesManager().getBool(PreferencesKey.isLoggedIn) ?? false;
+        PreferencesManager().getBool(PreferencesKey.doneOnboarding) ??
+        false;
+    final currentUser = UserRepository().getCurrentUser();
+    final isLoggedIn = currentUser != null;
     if (!mounted) return;
     if (!doneOnboarding) {
       Navigator.pushReplacement(

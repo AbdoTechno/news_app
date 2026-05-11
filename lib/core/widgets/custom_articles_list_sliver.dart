@@ -10,7 +10,8 @@ class CustomArticlesListSliver extends StatelessWidget {
   final RequestStatusEnums requestStatus;
   final List<NewsArticleModel> articles;
   final String? errorMessage;
-  final VoidCallback? onBookmarkTap;
+  final Function(NewsArticleModel)? onBookmarkTap;
+  final bool Function(NewsArticleModel)? isBookmarked;
   final Function(NewsArticleModel)? onArticleTap;
   final int shimmerItemCount;
   final EdgeInsetsGeometry padding;
@@ -23,9 +24,13 @@ class CustomArticlesListSliver extends StatelessWidget {
     required this.articles,
     this.errorMessage,
     this.onBookmarkTap,
+    this.isBookmarked,
     this.onArticleTap,
     this.shimmerItemCount = 10,
-    this.padding = const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+    this.padding = const EdgeInsets.symmetric(
+      horizontal: 16.0,
+      vertical: 8,
+    ),
     this.imageWidth = 150,
     this.imageHeight = 90,
   });
@@ -57,6 +62,7 @@ class CustomArticlesListSliver extends StatelessWidget {
               imageWidth: imageWidth,
               imageHeight: imageHeight,
               onBookmarkTap: onBookmarkTap,
+              isBookmarked: isBookmarked?.call(news) ?? false,
             );
           },
         );

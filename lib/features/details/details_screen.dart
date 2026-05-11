@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:news/core/extension/date_time_extension.dart';
 import 'package:news/core/sizes/app_sizes.dart';
 import 'package:news/core/widgets/custom_cached_networkImage.dart';
+import 'package:news/features/bookmark/bookmark_controller.dart';
 import 'package:news/features/home/models/news_article_model.dart';
+import 'package:provider/provider.dart';
 
 class DetailsScreen extends StatelessWidget {
   final NewsArticleModel model;
@@ -20,7 +22,9 @@ class DetailsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
+                borderRadius: BorderRadius.circular(
+                  AppSizes.borderRadius16,
+                ),
                 child: CustomCachedNetworkImage(
                   imageUrl: model.urlToImage ?? "",
                   height: 230,
@@ -60,36 +64,53 @@ class DetailsScreen extends StatelessWidget {
                             model.author ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium?.color?.withOpacity(0.6),
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.color
+                                      ?.withOpacity(0.6),
+                                ),
                           ),
                         ),
                         SizedBox(width: AppSizes.spacingWidth8),
                         Text(
                           model.publishedAt.formatDate(),
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            overflow: TextOverflow.ellipsis,
-                            color: Theme.of(
-                              context,
-                            ).textTheme.bodyMedium?.color?.withOpacity(0.6),
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                overflow: TextOverflow.ellipsis,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.color
+                                    ?.withOpacity(0.6),
+                              ),
                         ),
                       ],
                     ),
                   ),
                   SizedBox(width: AppSizes.spacingWidth8),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Icon(
-                      Icons.bookmark_border_outlined,
-                      size: AppSizes.iconSize25,
-                      color: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium?.color?.withOpacity(0.6),
-                    ),
+                  Consumer<BookmarkController>(
+                    builder: (context, bookmarkController, child) {
+                      final isBookmarked = bookmarkController.isBookmarked(
+                        model,
+                      );
+                      return GestureDetector(
+                        onTap: () {
+                          bookmarkController.toggleBookmark(model);
+                        },
+                        child: Icon(
+                          isBookmarked
+                              ? Icons.bookmark
+                              : Icons.bookmark_border_outlined,
+                          size: AppSizes.iconSize25,
+                          color: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.color?.withOpacity(0.6),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
